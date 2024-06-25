@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwnnet0bhb6xl"]
+
+[ext_resource type="PackedScene" uid="uid://b13cbdnw0qru6" path="res://scenes/tower.tscn" id="1_nquos"]
+[ext_resource type="PackedScene" uid="uid://c03b8artlnayo" path="res://scenes/archer.tscn" id="2_whdq6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ys0qt"]
+radius = 128.0
+
+[node name="ArcherTower" type="StaticBody2D"]
+
+[node name="Tower" parent="." instance=ExtResource("1_nquos")]
+
+[node name="Area2D" parent="." instance=ExtResource("2_whdq6")]
+position = Vector2(0, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ys0qt")
+debug_color = Color(0.910295, 0, 0.238548, 0.42)
