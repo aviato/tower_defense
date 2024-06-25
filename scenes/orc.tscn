@@ -1,7 +1,7 @@
 [gd_scene load_steps=60 format=3 uid="uid://corx0s73hhl7d"]
 
 [ext_resource type="Texture2D" uid="uid://6jg60482xm40" path="res://assets/sprite_sheets/orc_sprite_sheet.png" id="1_62erj"]
-[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_vo2xh"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_wlqcp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4chd"]
 atlas = ExtResource("1_62erj")
@@ -436,7 +436,7 @@ radius = 32.0
 
 [node name="Orc" type="CharacterBody2D"]
 texture_filter = 1
-script = ExtResource("1_vo2xh")
+script = ExtResource("1_wlqcp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2q1ba")
