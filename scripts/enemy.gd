@@ -1,26 +1,7 @@
 extends CharacterBody2D
 
-enum ORIENTATION {LEFT, RIGHT, UP, DOWN}
-const STATE: Dictionary =  {
-	"ATTACK": "attack",
-	"WALK": "walk",
-	"DIE": "die"
-}
-
-const FACINGS: Dictionary = {
-	ORIENTATION.UP: "u",
-	ORIENTATION.DOWN: "d",
-	ORIENTATION.LEFT: "s",
-	ORIENTATION.RIGHT: "s",
-}
-
 @export var speed: float = 50.0
 @export var health: int = 100
-@export var current_state: Dictionary = {
-	"action": STATE.WALK,
-	"orientation": FACINGS[ORIENTATION.UP],
-}
-
 @onready var last_global_position: Vector2 = global_position
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var aggro_radius = $AggroRadius
@@ -33,10 +14,12 @@ func _ready():
 func _physics_process(delta) -> void:
 	var target_position: Vector2 = get_target_position()
 	var direction: Vector2 = (target_position - global_position).normalized()
-	velocity = direction * speed
+	var velocity = direction * speed
 	var orientation = get_orientation(direction)
 	var state = get_character_state()
+
 	animate(state, orientation)
+	
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	
 	if collision:
