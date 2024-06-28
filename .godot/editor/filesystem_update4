@@ -1,3 +1,9 @@
+res://scenes/game.tscn
+res://scripts/game.gd
 res://scenes/main.tscn
+res://scripts/main.gd
 res://scenes/orc.tscn
 res://scripts/enemy.gd
+res://scenes/player.tscn
+res://scenes/castle.tscn
+res://scripts/player.gd
