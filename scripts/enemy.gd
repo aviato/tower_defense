@@ -49,6 +49,8 @@ func _physics_process(delta) -> void:
 
 
 func _on_animation_finished():
+	# TODO: this should not be called on every animation finish signal!
+	# it should really only run when the die animation finishes
 	if _health <= 0:
 		queue_free()
 
