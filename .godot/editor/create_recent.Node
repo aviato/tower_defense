@@ -1,0 +1,7 @@
+CollisionShape2D
+Area2D
+Node2D
+NavigationAgent2D
+NavigationRegion2D
+Line2D
+RayCast2D

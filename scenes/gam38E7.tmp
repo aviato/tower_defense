@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ij15ek3u7fup"]
+[gd_scene load_steps=9 format=3 uid="uid://ij15ek3u7fup"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_a5b8j"]
 [ext_resource type="Texture2D" uid="uid://c7rpq35ms6mvh" path="res://assets/terrain_tilemap.png" id="1_qfkji"]
@@ -268,14 +268,11 @@ texture = ExtResource("1_qfkji")
 [sub_resource type="TileSet" id="TileSet_dgicm"]
 sources/0 = SubResource("TileSetAtlasSource_4cpy3")
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_i4vfo"]
-vertices = PackedVector2Array(710, 710, 570, 710, 562, 138, 710, 138)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(560, 720, 552, 128, 720, 128, 720, 720)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_871ac"]
+vertices = PackedVector2Array(778, 138, 778, 10, 822, 10, 822, 182, 710, 182, 502, 138, 710, 822, 570, 822, 570, 182, 458, 182, 458, 10, 502, 10)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(4, 6, 7, 8), PackedInt32Array(5, 4, 8), PackedInt32Array(5, 8, 9), PackedInt32Array(5, 9, 10, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(560, 832, 560, 192, 448, 192, 448, 0, 512, 0, 512, 128, 768, 128, 768, 0, 832, 0, 832, 192, 720, 192, 720, 832)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujup1"]
-size = Vector2(304, 152)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_a5b8j")
@@ -292,19 +289,6 @@ layer_0/tile_data = PackedInt32Array(2818084, 65536, 0, 2883620, 65536, 1, 28180
 position = Vector2(640, 64)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_i4vfo")
+navigation_polygon = SubResource("NavigationPolygon_871ac")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(640, 688)
-
-[node name="EnemyDestination" type="Area2D" parent="."]
-position = Vector2(640, 96)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDestination"]
-z_index = 10
-position = Vector2(0, -20)
-shape = SubResource("RectangleShape2D_ujup1")
-debug_color = Color(0.998373, 0, 0.143688, 0.42)
-
-[node name="CharacterBody2D2" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(640, 512)
+[node name="CharacterBody2D" parent="NavigationRegion2D" instance=ExtResource("5_qt265")]

@@ -440,6 +440,7 @@ texture_filter = 1
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_wlqcp")
+_speed = 250.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2q1ba")
@@ -448,14 +449,10 @@ animation = &"die_u"
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lorbm")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true
-
 [node name="AggroRadius" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius"]
 shape = SubResource("CircleShape2D_hca16")
 debug_color = Color(0.528893, 0, 0.108299, 0.42)
 
-[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_agent_velocity_computed"]
 [connection signal="body_entered" from="AggroRadius" to="." method="_on_aggro_radius_body_entered"]
