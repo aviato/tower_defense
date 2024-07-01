@@ -1,7 +1,8 @@
+res://scenes/player.tscn
+res://scripts/player.gd
 res://scenes/main.tscn
 res://scenes/orc.tscn
 res://scenes/game.tscn
-res://scenes/player.tscn
 res://scenes/castle.tscn
-res://vector_2_debug.tscn
+res://scenes/main_menu.tscn
 res://scripts/enemy.gd
