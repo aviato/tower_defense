@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://corx0s73hhl7d"]
+[gd_scene load_steps=61 format=3 uid="uid://corx0s73hhl7d"]
 
 [ext_resource type="Texture2D" uid="uid://6jg60482xm40" path="res://assets/sprite_sheets/orc_sprite_sheet.png" id="1_62erj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_wlqcp"]
@@ -434,6 +434,8 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hca16"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8yu0"]
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 2
 texture_filter = 1
@@ -445,11 +447,12 @@ script = ExtResource("1_wlqcp")
 sprite_frames = SubResource("SpriteFrames_2q1ba")
 animation = &"die_u"
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lorbm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+debug_enabled = true
 
 [node name="AggroRadius" type="Area2D" parent="."]
 
@@ -457,5 +460,12 @@ avoidance_enabled = true
 shape = SubResource("CircleShape2D_hca16")
 debug_color = Color(0.528893, 0, 0.108299, 0.42)
 
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_q8yu0")
+
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_nav_agent_velocity_computed"]
 [connection signal="body_entered" from="AggroRadius" to="." method="_on_aggro_radius_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

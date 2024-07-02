@@ -1,8 +1,14 @@
-res://scenes/player.tscn
-res://scripts/player.gd
+res://scenes/archer_tower.tscn
+res://scenes/archer.tscn
 res://scenes/main.tscn
 res://scenes/orc.tscn
 res://scenes/game.tscn
+res://scenes/player.tscn
 res://scenes/castle.tscn
 res://scenes/main_menu.tscn
+res://scenes/arrow.tscn
+res://scenes/tower.tscn
+res://scenes/archer.gd
+res://scripts/arrow.gd
+res://scripts/archer.gd
 res://scripts/enemy.gd

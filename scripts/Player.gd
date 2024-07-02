@@ -1,7 +1,6 @@
 extends Node2D
 # Player script holds game logic related to placing towers and other
 # actions a player may take during the course of a game
-
 @onready var archer_tower_scene: PackedScene = preload("res://scenes/archer_tower.tscn")
 @onready var placeholder_valid: Node2D = $PlaceholderArea/PlaceholderValid
 @onready var placeholder_invalid: Node2D = $PlaceholderArea/PlaceholderInvalid
@@ -11,7 +10,7 @@ var _is_placing_tower: bool = false
 var _is_valid_placement: bool = false
 
 
-func _ready():
+func _ready() -> void:
 	pass
 
 
@@ -38,7 +37,7 @@ func place_tower(tower_pos: Vector2) -> void:
 		_is_placing_tower = false
 
 
-func _on_place_tower_button_pressed():
+func _on_place_tower_button_pressed() -> void:
 	_is_placing_tower = !_is_placing_tower
 
 	if !_is_placing_tower:
@@ -48,7 +47,7 @@ func _on_place_tower_button_pressed():
 		placeholder_valid.visible = true
 
 
-func _on_placeholder_area_entered(area):
+func _on_placeholder_area_entered(_area) -> void:
 	_is_valid_placement = false
 	placeholder_invalid.visible = true
 	placeholder_valid.visible = false
@@ -59,7 +58,7 @@ func _on_placeholder_area_entered(area):
 # if user's mouse leaves an area considered to be off-limits
 # but the mouse is still in an off-limits area we will have toggled
 # the placeholder sprite incorrectly
-func _on_placeholder_area_exited(area):
+func _on_placeholder_area_exited(_area) -> void:
 	_is_valid_placement = true
 	placeholder_valid.visible = true
 	placeholder_invalid.visible = false

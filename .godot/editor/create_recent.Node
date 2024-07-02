@@ -1,9 +1,10 @@
+CollisionShape2D
 Area2D
+Sprite2D
+Node2D
+Timer
 CollisionPolygon2D
 ColorRect
-Node2D
-Sprite2D
-CollisionShape2D
 Button
 CanvasLayer
 NavigationAgent2D

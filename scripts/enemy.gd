@@ -5,9 +5,11 @@ extends CharacterBody2D
 ##
 ## CharacterBody2D
 ## ├── AnimatedSprite2D
-## ├── Hitbox (CollisionShape2D)
+## ├── Collider (CollisionShape2D)
 ## ├── NavigationAgent2D
 ## └── AggroRadius (Area2D)
+##    └── CollisionShape2D
+## └── Hitbox (Area2D)
 ##    └── CollisionShape2D
 ## 
 ## Assets should only have three directions: s, u, d, which correspond to
@@ -32,6 +34,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if _nav_agent.is_navigation_finished():
+		animate("u")
 		return
 
 	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
@@ -54,7 +57,7 @@ func _on_animation_finished() -> void:
 		queue_free()
 
 
-func get_orientation(direction: Vector2):
+func get_orientation(direction: Vector2) -> String:
 	var orientation: String = ""
 
 	if abs(direction.x) > abs(direction.y):
@@ -87,6 +90,10 @@ func animate(orientation: String) -> void:
 	_animated_sprite.play(next_animation)
 
 
+func take_damage(amount: int) -> void:
+	_health -= amount
+
+
 func _on_aggro_radius_body_entered(body) -> void:
 	var distance_between: Vector2 = (body.global_position - global_position).normalized()
 	if abs(distance_between.x) + abs(distance_between.y) >= 1:
@@ -96,4 +103,13 @@ func _on_aggro_radius_body_entered(body) -> void:
 func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 	move_and_slide()
+
+
+#TODO look up Area2D.is_in_group method and see about putting all projectiles
+#into a group...
+func _on_hitbox_area_entered(projectile: Area2D) -> void:
+	print("hit by arrow")
+
+	if projectile.name == "arrow":
+		take_damage(10)
 

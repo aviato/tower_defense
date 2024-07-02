@@ -1,5 +1,6 @@
-[gd_scene load_steps=43 format=3 uid="uid://c03b8artlnayo"]
+[gd_scene load_steps=45 format=3 uid="uid://c03b8artlnayo"]
 
+[ext_resource type="Script" path="res://scripts/archer.gd" id="1_fvkjp"]
 [ext_resource type="Texture2D" uid="uid://cdysip5vf04ej" path="res://assets/sprite_sheets/archer_sprite_sheet.png" id="1_skfd1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ra48u"]
@@ -326,7 +327,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_mxriu"]
 radius = 12.0416
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jkb8v"]
+custom_solver_bias = 1.0
+radius = 420.0
+
+[node name="Archer" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_fvkjp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -339,3 +347,19 @@ frame_progress = 0.721405
 texture_filter = 1
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_mxriu")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 4.817
+
+[node name="AggroRadius" type="Area2D" parent="."]
+position = Vector2(0, 12)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius"]
+shape = SubResource("CircleShape2D_jkb8v")
+debug_color = Color(0.647059, 0.329412, 1, 0.156863)
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="body_entered" from="AggroRadius" to="." method="_on_aggro_radius_body_entered"]
+[connection signal="body_exited" from="AggroRadius" to="." method="_on_aggro_radius_body_exited"]
