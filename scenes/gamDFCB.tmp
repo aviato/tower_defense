@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ioucx2cx86k" path="res://assets/sprites/valid.png" id="5_frii2"]
 [ext_resource type="PackedScene" uid="uid://corx0s73hhl7d" path="res://scenes/orc.tscn" id="5_qt265"]
 [ext_resource type="Texture2D" uid="uid://bfy3gkagube0u" path="res://assets/sprites/invalid.png" id="6_8luyf"]
-[ext_resource type="Script" path="res://scenes/grid_node.gd" id="8_r8vvq"]
+[ext_resource type="Script" path="res://scripts/grid_lines.gd" id="7_mkbxv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpy3"]
 texture = ExtResource("1_qfkji")
@@ -394,9 +394,8 @@ offset_bottom = 32.0
 color = Color(1, 0, 0, 0.407843)
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildGrid" type="Node2D" parent="."]
-visible = false
-script = ExtResource("8_r8vvq")
+[node name="GridLines" type="Sprite2D" parent="."]
+script = ExtResource("7_mkbxv")
 
 [connection signal="pressed" from="UI/Button" to="." method="_on_place_tower_button_pressed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_placeholder_area_entered"]

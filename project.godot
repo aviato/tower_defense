@@ -30,6 +30,7 @@ window/size/viewport_height=720
 2d_physics/layer_2="units"
 2d_physics/layer_3="paths"
 2d_physics/layer_4="placeholders"
+2d_physics/layer_5="projectiles"
 
 [rendering]
 

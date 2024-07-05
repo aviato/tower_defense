@@ -22,15 +22,15 @@ func _process(delta):
 
 func ready_arrow() -> void:
 	var arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
-	var arrow_instance: Node2D   = arrow_scene.instantiate()
-	var game_node: Node2D        = get_node("/root/Main/Game")
-	var target: CharacterBody2D  = _detected_enemies[0] as CharacterBody2D
+	var arrow_instance: Node2D = arrow_scene.instantiate()
+	var game_node: Node2D = get_node("/root/Main/Game")
+	var target: CharacterBody2D = _detected_enemies[0] as CharacterBody2D
 	arrow_instance.set_target(target)
 	game_node.call_deferred("add_child", arrow_instance)
 	arrow_instance.global_position = global_position
 	cooldown_timer.start()
 	_is_ready = false
-	
+
 
 func _on_aggro_radius_body_entered(body):
 	_detected_enemies.append(body)
@@ -45,4 +45,4 @@ func _on_aggro_radius_body_exited(body):
 
 func _on_cooldown_timer_timeout():
 	_is_ready = true
-	
+

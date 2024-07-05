@@ -20,7 +20,7 @@ extends CharacterBody2D
 @onready var _nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var _enemy_destination: Area2D = get_node("/root/Main/Game/EnemyDestination")
 @export var _move_speed: float = 55.0
-@export var _health: int = 100
+@export var _health: int = 40
 @export var _character_state: String = "walk"
 var _is_attacking: bool = false
 
@@ -109,7 +109,8 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 #into a group...
 func _on_hitbox_area_entered(projectile: Area2D) -> void:
 	print("hit by arrow")
-
-	if projectile.name == "arrow":
+	print(projectile.name)
+	#TODO fix this... this cannot be the right way...
+	if projectile.name == "Arrow":
 		take_damage(10)
 
