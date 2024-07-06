@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://corx0s73hhl7d"]
+[gd_scene load_steps=63 format=3 uid="uid://corx0s73hhl7d"]
 
 [ext_resource type="Texture2D" uid="uid://6jg60482xm40" path="res://assets/sprite_sheets/orc_sprite_sheet.png" id="1_62erj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_wlqcp"]
@@ -439,16 +439,16 @@ radius = 32.0
 [sub_resource type="Theme" id="Theme_eiylo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h3yr"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(1, 0, 0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cws8m"]
-bg_color = Color(1, 0, 0, 1)
 border_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 2
@@ -466,6 +466,7 @@ shape = SubResource("CircleShape2D_lorbm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
+debug_enabled = true
 
 [node name="AggroRadius" type="Area2D" parent="."]
 
@@ -485,13 +486,11 @@ offset_left = -8.0
 offset_top = -16.0
 offset_right = 12.0
 offset_bottom = 9.0
-scale = Vector2(0.792214, 0.0585857)
+scale = Vector2(0.793078, 0.0985845)
 theme = SubResource("Theme_eiylo")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_4h3yr")
-theme_override_styles/fill = SubResource("StyleBoxFlat_cws8m")
-step = 0.0
 rounded = true
 show_percentage = false
 
@@ -499,4 +498,3 @@ show_percentage = false
 [connection signal="body_entered" from="AggroRadius" to="." method="_on_aggro_radius_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
-[connection signal="value_changed" from="ProgressBar" to="." method="_on_progress_bar_value_changed"]

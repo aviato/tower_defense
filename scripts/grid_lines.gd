@@ -5,7 +5,6 @@ var current_position_x: int = GRID_SIZE
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(get_viewport().size)
 	for i in get_viewport().size.x:
 		var current_line_start: Vector2 = Vector2(current_position_x, 0)
 		var current_line_end: Vector2 = Vector2(current_position_x, get_viewport().size.y)

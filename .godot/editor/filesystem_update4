@@ -1,7 +1,8 @@
-res://scenes/game.tscn
-res://scripts/game.gd
 res://scenes/main.tscn
+res://scripts/enemy.gd
+res://scenes/game.tscn
 res://scenes/orc.tscn
 res://scenes/arrow.tscn
-res://scripts/grid_lines.gd
-res://scenes/grid_node.gd
+res://scenes/archer.tscn
+res://scripts/archer.gd
+res://scripts/game.gd

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://c7rpq35ms6mvh" path="res://assets/terrain_tilemap.png" id="1_qfkji"]
 [ext_resource type="PackedScene" uid="uid://cnug7dh45crj2" path="res://scenes/castle.tscn" id="4_tg0nq"]
 [ext_resource type="Texture2D" uid="uid://c8ioucx2cx86k" path="res://assets/sprites/valid.png" id="5_frii2"]
-[ext_resource type="PackedScene" uid="uid://corx0s73hhl7d" path="res://scenes/orc.tscn" id="5_qt265"]
 [ext_resource type="Texture2D" uid="uid://bfy3gkagube0u" path="res://assets/sprites/invalid.png" id="6_8luyf"]
 [ext_resource type="Script" path="res://scenes/grid_node.gd" id="8_r8vvq"]
 
@@ -282,6 +281,9 @@ size = Vector2(304, 152)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fo7ov"]
 size = Vector2(64, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_434oa"]
+size = Vector2(144, 72)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_a5b8j")
 
@@ -296,9 +298,6 @@ position = Vector2(640, 64)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_i4vfo")
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(640, 688)
 
 [node name="EnemyDestination" type="Area2D" parent="."]
 position = Vector2(640, 96)
@@ -336,24 +335,6 @@ collision_mask = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(560, 720, 560, 192, 448, 192, 448, 0, 832, 0, 832, 192, 720, 192, 720, 720)
-
-[node name="CharacterBody2D2" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(640, 544)
-
-[node name="CharacterBody2D3" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(640, 600)
-
-[node name="CharacterBody2D4" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(664, 640)
-
-[node name="CharacterBody2D5" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(608, 640)
-
-[node name="CharacterBody2D6" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(592, 688)
-
-[node name="CharacterBody2D7" parent="." instance=ExtResource("5_qt265")]
-position = Vector2(688, 688)
 
 [node name="BuildArea" type="Area2D" parent="."]
 collision_mask = 15
@@ -397,6 +378,13 @@ metadata/_edit_use_anchors_ = true
 [node name="BuildGrid" type="Node2D" parent="."]
 visible = false
 script = ExtResource("8_r8vvq")
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(640, 672)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_434oa")
 
 [connection signal="pressed" from="UI/Button" to="." method="_on_place_tower_button_pressed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_placeholder_area_entered"]

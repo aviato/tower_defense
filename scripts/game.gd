@@ -5,6 +5,7 @@ const GRID_SIZE = Vector2(16, 16)
 @onready var archer_tower_scene: PackedScene = preload("res://scenes/archer_tower.tscn")
 @onready var placeholder_valid: Node2D = $BuildArea/PlaceholderValid
 @onready var placeholder_invalid: Node2D = $BuildArea/PlaceholderInvalid
+@onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
 @onready var _global_state: Node = $"/root/Globals"
 @onready var build_grid: Node2D = $BuildGrid
 @export var _castle_health: int = 1000
@@ -17,7 +18,9 @@ var _colliding_bodies: Array[Area2D] = []
 
 
 func _ready() -> void:
-	pass
+	for i in 50:
+		var orc: CharacterBody2D = orc_scene.instantiate()
+		add_child(orc)
 
 
 func _process(_delta) -> void:
@@ -73,7 +76,6 @@ func _on_placeholder_area_entered(area: Area2D) -> void:
 		placeholder_invalid.visible = true
 
 
-
 func _on_placeholder_area_exited(area: Area2D) -> void:
 	var area_index: int = _colliding_bodies.find(area) 
 	if area_index != -1:
@@ -83,7 +85,7 @@ func _on_placeholder_area_exited(area: Area2D) -> void:
 		_is_valid_placement = true
 		placeholder_valid.visible = true
 		placeholder_invalid.visible = false
-	
+
 
 func set_castle_health(damage: int) -> void:
 	_castle_health -= damage
@@ -95,7 +97,7 @@ func next_wave():
 
 func start_round():
 	_wave_active = true
-	
+
 
 func end_round():
 	_wave_active = false
@@ -112,3 +114,11 @@ func remove_gold(gold_amount: int) -> void:
 func has_enough_gold(gold_amount: int) -> bool:
 	return _current_gold - gold_amount >= 0
 
+#func pick_random_location():
+	#var rng = RandomNumberGenerator.new()
+	#rng.randomize()
+	#
+	#var random_x = rng.randf_range(top_left.x + enemy_size.x / 2, bottom_right.x - enemy_size.x / 2)
+	#var random_y = rng.randf_range(top_left.y + enemy_size.y / 2, bottom_right.y - enemy_size.y / 2)
+	#
+	#return Vector2(random_x, random_y)

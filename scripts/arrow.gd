@@ -18,8 +18,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if _target != null:
-		_direction = (_target.global_position - global_position).normalized()
+		var next_direction = _target.global_position - global_position
+		_direction = next_direction.normalized()
 		_velocity = _direction * _arrow_speed * delta
+		rotation = _direction.angle()
+		print("THE X DIRECTION")
+		print(_direction.x)		
+		print(_direction.x > 0)
+		print("THE X DIRECTION")
+		sprite.flip_h = next_direction.x < 0
 		global_position += _velocity
 		print(global_position.distance_to(_target.global_position))
 		if global_position.distance_to(_target.global_position) < 5:
@@ -27,6 +34,7 @@ func _process(delta):
 			queue_free()
 
 
-func set_target(target: CharacterBody2D) -> void:
+func set_target(target: CharacterBody2D, arrow_speed: float) -> void:
 	_target = target
+	_arrow_speed = arrow_speed
 
