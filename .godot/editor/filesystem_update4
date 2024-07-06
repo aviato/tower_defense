@@ -4,5 +4,9 @@ res://scenes/game.tscn
 res://scenes/orc.tscn
 res://scenes/arrow.tscn
 res://scenes/archer.tscn
+res://scenes/archer_tower.tscn
+res://scenes/tower.tscn
 res://scripts/archer.gd
+res://scripts/arrow.gd
 res://scripts/game.gd
+res://scenes/grid_node.gd

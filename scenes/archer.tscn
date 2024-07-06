@@ -180,7 +180,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3ja6q")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_d",
 "speed": 8.0
 }, {
@@ -203,7 +203,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b8jr6")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_s",
 "speed": 8.0
 }, {
@@ -226,7 +226,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_phtu7")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_u",
 "speed": 8.0
 }, {
@@ -303,7 +303,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2erk5")
 }],
-"loop": true,
+"loop": false,
 "name": &"pre_attack_d",
 "speed": 8.0
 }, {
@@ -311,7 +311,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hydu1")
 }],
-"loop": true,
+"loop": false,
 "name": &"pre_attack_s",
 "speed": 8.0
 }, {
@@ -319,7 +319,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vs3v2")
 }],
-"loop": true,
+"loop": false,
 "name": &"pre_attack_u",
 "speed": 8.0
 }]
@@ -332,7 +332,7 @@ custom_solver_bias = 1.0
 radius = 420.0
 
 [node name="Archer" type="Area2D"]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_fvkjp")
 arrow_speed = 1000.0
@@ -340,7 +340,7 @@ arrow_speed = 1000.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5x5dm")
-animation = &"idle_s"
+animation = &"attack_d"
 autoplay = "idle_s"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -349,7 +349,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_mxriu")
 
 [node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 4.817
+wait_time = 0.609
 
 [node name="AggroRadius" type="Area2D" parent="."]
 visible = false

@@ -103,6 +103,7 @@ animations = [{
 size = Vector2(64, 64)
 
 [node name="Tower" type="Area2D"]
+collision_mask = 15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

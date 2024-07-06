@@ -27,15 +27,12 @@ var _is_attacking: bool = false
 
 func _ready() -> void:
 	_animated_sprite.connect("animation_finished", _on_animation_finished)
-	_nav_agent.path_desired_distance = 4.0
-	_nav_agent.target_desired_distance = 4.0
-	_nav_agent.set_target_position(_enemy_destination.global_position)
 	$ProgressBar.value = _health
+	call_deferred("_nav_agent_setup")
 
 
 func _physics_process(_delta: float) -> void:
 	if _nav_agent.is_navigation_finished():
-		animate("u")
 		return
 
 	var next_path_position: Vector2 = _nav_agent.get_next_path_position()
@@ -49,6 +46,13 @@ func _physics_process(_delta: float) -> void:
 		_nav_agent.set_velocity(new_velocity)
 	else:
 		_on_nav_agent_velocity_computed(new_velocity)
+
+
+func _nav_agent_setup():
+	await get_tree().physics_frame
+	_nav_agent.path_desired_distance = 4.0
+	_nav_agent.target_desired_distance = 4.0
+	_nav_agent.set_target_position(_enemy_destination.global_position)
 
 
 func _on_animation_finished() -> void:
@@ -109,7 +113,7 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 #TODO look up Area2D.is_in_group method and see about putting all projectiles
 #into a group...
 func _on_hitbox_area_entered(projectile: Area2D) -> void:
-	print("hit by arrow")
+	#print("hit by arrow")
 	#TODO fix this... this cannot be the right way...
 	if projectile.name == "Arrow":
 		take_damage(10)

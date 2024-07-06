@@ -6,7 +6,7 @@ const GRID_SIZE = Vector2(16, 16)
 @onready var placeholder_valid: Node2D = $BuildArea/PlaceholderValid
 @onready var placeholder_invalid: Node2D = $BuildArea/PlaceholderInvalid
 @onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
-@onready var _global_state: Node = $"/root/Globals"
+#@onready var _global_state: Node = $"/root/Globals"
 @onready var build_grid: Node2D = $BuildGrid
 @export var _castle_health: int = 1000
 @export var _current_wave: int = 0
@@ -18,7 +18,7 @@ var _colliding_bodies: Array[Area2D] = []
 
 
 func _ready() -> void:
-	for i in 50:
+	for i in 10:
 		var orc: CharacterBody2D = orc_scene.instantiate()
 		add_child(orc)
 
