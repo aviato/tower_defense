@@ -319,12 +319,12 @@ offset_right = 1253.0
 offset_bottom = 687.0
 text = "PLACE TOWER"
 
-[node name="Label" type="Label" parent="UI"]
+[node name="GoldLabel" type="Label" parent="UI"]
 offset_left = 928.0
 offset_top = 8.0
 offset_right = 996.0
 offset_bottom = 31.0
-text = "Gold 500"
+text = "Gold: 500"
 
 [node name="CastleHealthLabel" type="Label" parent="UI"]
 offset_left = 1024.0
@@ -341,6 +341,7 @@ collision_mask = 8
 polygon = PackedVector2Array(560, 720, 560, 192, 448, 192, 448, 0, 832, 0, 832, 192, 720, 192, 720, 720)
 
 [node name="BuildArea" type="Area2D" parent="."]
+position = Vector2(-40, 0)
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildArea"]

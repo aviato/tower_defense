@@ -10,11 +10,12 @@ var _is_valid_placement: bool = false
 var _colliding_bodies: Array[Area2D] = []
 var _is_game_over = false:
 	set = _set_is_game_over
+var _archer_tower_cost: int = 100
 @onready var archer_tower_scene: PackedScene = preload("res://scenes/archer_tower.tscn")
 @onready var placeholder_valid: Node2D = $BuildArea/PlaceholderValid
 @onready var placeholder_invalid: Node2D = $BuildArea/PlaceholderInvalid
 @onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
-@onready var global_state: Node = $"/root/Globals"
+@onready var global_state: Node = $"/root/Globals" as Globals
 @onready var build_grid: Node2D = $BuildGrid
 
 
@@ -23,7 +24,6 @@ func _ready() -> void:
 
 	for i in 10:
 		var orc: CharacterBody2D = orc_scene.instantiate()
-		#orc.attacked.connect()
 		add_child(orc)
 
 
@@ -42,7 +42,12 @@ func _input(event: InputEvent) -> void:
 	if _is_placing_tower and event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			var mouse_pos: Vector2 = event.position
-			place_tower(mouse_pos)
+			var remaining_gold: int = global_state.gold - _archer_tower_cost
+			if _is_valid_placement and remaining_gold >= 0:
+				global_state.set_gold(remaining_gold)
+				place_tower(mouse_pos)
+			else:
+				print("not enough gold!")
 
 
 func _set_is_game_over(castle_health: int) -> void:
@@ -51,6 +56,7 @@ func _set_is_game_over(castle_health: int) -> void:
 		_is_game_over = true
 	else:
 		_is_game_over = false
+
 
 #NOTE I do not know how this works
 func snap_vector(pos: Vector2):
@@ -61,14 +67,13 @@ func snap_vector(pos: Vector2):
 
 
 func place_tower(tower_pos: Vector2) -> void:
-	if _is_valid_placement:
-		var new_tower = archer_tower_scene.instantiate() #TODO: add type here
-		new_tower.global_position = snap_vector(tower_pos)
-		add_child(new_tower)
-		placeholder_valid.visible = false
-		placeholder_invalid.visible = false
-		build_grid.visible = false
-		_is_placing_tower = false
+	var new_tower := archer_tower_scene.instantiate()
+	new_tower.global_position = snap_vector(tower_pos)
+	add_child(new_tower)
+	placeholder_valid.visible = false
+	placeholder_invalid.visible = false
+	build_grid.visible = false
+	_is_placing_tower = false
 
 
 func _on_place_tower_button_pressed() -> void:
