@@ -30,6 +30,7 @@ var _gold_in_pockets := 25
 @onready var _nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var _enemy_destination := get_node("/root/Main/Game/EnemyDestination") as Area2D
 @onready var _global_state := $/root/Globals as Globals
+@onready var _progress_bar := $ProgressBar as ProgressBar
 
 func _ready() -> void:
 	_animated_sprite.animation_finished.connect(_on_animation_finished)
@@ -100,6 +101,7 @@ func animate(orientation: String) -> void:
 
 func take_damage(amount: int) -> void:
 	_health -= amount
+	$ProgressBar.value = _health
 	print(_health)
 
 
