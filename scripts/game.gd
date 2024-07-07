@@ -2,28 +2,36 @@ extends Node2D
 # Game script holds game logic related to placing towers and other
 # actions a player may take during the course of a game
 const GRID_SIZE = Vector2(16, 16)
-@onready var archer_tower_scene: PackedScene = preload("res://scenes/archer_tower.tscn")
-@onready var placeholder_valid: Node2D = $BuildArea/PlaceholderValid
-@onready var placeholder_invalid: Node2D = $BuildArea/PlaceholderInvalid
-@onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
-#@onready var _global_state: Node = $"/root/Globals"
-@onready var build_grid: Node2D = $BuildGrid
-@export var _castle_health: int = 1000
 @export var _current_wave: int = 0
 @export var _wave_active: bool = false
 @export var _current_gold: int = 500
 var _is_placing_tower: bool = false
 var _is_valid_placement: bool = false
 var _colliding_bodies: Array[Area2D] = []
+var _is_game_over = false:
+	set = _set_is_game_over
+@onready var archer_tower_scene: PackedScene = preload("res://scenes/archer_tower.tscn")
+@onready var placeholder_valid: Node2D = $BuildArea/PlaceholderValid
+@onready var placeholder_invalid: Node2D = $BuildArea/PlaceholderInvalid
+@onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
+@onready var global_state: Node = $"/root/Globals"
+@onready var build_grid: Node2D = $BuildGrid
 
 
 func _ready() -> void:
+	global_state.castle_damaged.connect(_set_is_game_over)
+
 	for i in 10:
 		var orc: CharacterBody2D = orc_scene.instantiate()
+		#orc.attacked.connect()
 		add_child(orc)
 
 
 func _process(_delta) -> void:
+	if _is_game_over:
+		print("game over bud...")
+		return
+
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	
 	if _is_placing_tower:
@@ -36,6 +44,13 @@ func _input(event: InputEvent) -> void:
 			var mouse_pos: Vector2 = event.position
 			place_tower(mouse_pos)
 
+
+func _set_is_game_over(castle_health: int) -> void:
+	print("castle health is ", castle_health)
+	if castle_health <= 0:
+		_is_game_over = true
+	else:
+		_is_game_over = false
 
 #NOTE I do not know how this works
 func snap_vector(pos: Vector2):
@@ -85,10 +100,6 @@ func _on_placeholder_area_exited(area: Area2D) -> void:
 		_is_valid_placement = true
 		placeholder_valid.visible = true
 		placeholder_invalid.visible = false
-
-
-func set_castle_health(damage: int) -> void:
-	_castle_health -= damage
 
 
 func next_wave():

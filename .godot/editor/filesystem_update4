@@ -1,12 +1,10 @@
-res://scenes/main.tscn
-res://scripts/enemy.gd
 res://scenes/game.tscn
+res://scripts/enemy.gd
 res://scenes/orc.tscn
 res://scenes/arrow.tscn
 res://scenes/archer.tscn
-res://scenes/archer_tower.tscn
-res://scenes/tower.tscn
-res://scripts/archer.gd
-res://scripts/arrow.gd
+res://scenes/castle.tscn
 res://scripts/game.gd
-res://scenes/grid_node.gd
+res://scenes/castle.gd
+res://scripts/globals.gd
+res://scenes/game_interface.gd

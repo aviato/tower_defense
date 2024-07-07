@@ -16,14 +16,16 @@ extends CharacterBody2D
 ## sideways, up, and down
 ## 
 ## Animation names should always be snake case ex: "walk_s", "attack_u"
-@onready var _animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var _nav_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var _enemy_destination: Area2D = get_node("/root/Main/Game/EnemyDestination")
-@export var _move_speed: float = 55.0
-@export var _health: int = 100
-@export var _character_state: String = "walk"
-var _is_attacking: bool = false
-
+signal attacked(damage_amount)
+signal dropped_gold(gold_amount)
+@onready var _animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
+@onready var _nav_agent := $NavigationAgent2D as NavigationAgent2D
+@onready var _enemy_destination := get_node("/root/Main/Game/EnemyDestination") as Area2D
+@export var _move_speed := 55.0
+@export var _health := 100
+@export var _character_state := "walk"
+var _is_attacking := false
+var _attack_power := 20
 
 func _ready() -> void:
 	_animated_sprite.connect("animation_finished", _on_animation_finished)
@@ -103,6 +105,8 @@ func _on_aggro_radius_body_entered(body) -> void:
 	var distance_between: Vector2 = (body.global_position - global_position).normalized()
 	if abs(distance_between.x) + abs(distance_between.y) >= 1:
 		_is_attacking = true
+		if body.has_method("take_damage"):
+			body.take_damage(_attack_power)
 
 
 func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:

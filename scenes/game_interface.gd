@@ -1,0 +1,19 @@
+extends CanvasLayer
+
+
+@onready var global_state := $"/root/Globals" as Globals
+@onready var castle_health_label := $CastleHealthLabel as Label
+var label_prefix_text := "Castle Health Remaining: "
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	castle_health_label.text = label_prefix_text + str(global_state.castle_health)
+	global_state.castle_damaged.connect(_update_castle_health_display)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _update_castle_health_display(castle_health: int) -> void:
+	castle_health_label.text = label_prefix_text + str(castle_health)

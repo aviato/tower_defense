@@ -1,7 +1,8 @@
 extends Node
 
-
-@export var _castle_health: int = 1000
+signal castle_damaged(amount)
+@export var castle_health: int = 1000 :
+	set = set_castle_health
 @export var _current_wave: int = 0
 @export var _wave_active: bool = false
 @export var _current_gold: int = 500
@@ -17,7 +18,9 @@ func _process(_delta):
 	
 	
 func set_castle_health(damage: int) -> void:
-	_castle_health -= damage
+	var new_castle_health := castle_health - damage
+	castle_health = new_castle_health
+	castle_damaged.emit(castle_health)
 
 
 func next_wave():

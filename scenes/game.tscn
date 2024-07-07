@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://ij15ek3u7fup"]
+[gd_scene load_steps=14 format=3 uid="uid://ij15ek3u7fup"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_a5b8j"]
 [ext_resource type="Texture2D" uid="uid://c7rpq35ms6mvh" path="res://assets/terrain_tilemap.png" id="1_qfkji"]
+[ext_resource type="Script" path="res://scenes/game_interface.gd" id="4_quwmy"]
 [ext_resource type="PackedScene" uid="uid://cnug7dh45crj2" path="res://scenes/castle.tscn" id="4_tg0nq"]
 [ext_resource type="Texture2D" uid="uid://c8ioucx2cx86k" path="res://assets/sprites/valid.png" id="5_frii2"]
 [ext_resource type="Texture2D" uid="uid://bfy3gkagube0u" path="res://assets/sprites/invalid.png" id="6_8luyf"]
@@ -309,6 +310,7 @@ shape = SubResource("RectangleShape2D_ujup1")
 debug_color = Color(0.998373, 0, 0.143688, 0.42)
 
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_quwmy")
 
 [node name="Button" type="Button" parent="UI"]
 offset_left = 1136.0
@@ -318,16 +320,18 @@ offset_bottom = 687.0
 text = "PLACE TOWER"
 
 [node name="Label" type="Label" parent="UI"]
-offset_left = 960.0
-offset_right = 1028.0
-offset_bottom = 23.0
+offset_left = 928.0
+offset_top = 8.0
+offset_right = 996.0
+offset_bottom = 31.0
 text = "Gold 500"
 
-[node name="Label2" type="Label" parent="UI"]
-offset_left = 1088.0
-offset_right = 1232.0
-offset_bottom = 23.0
-text = "Castle Health 1000"
+[node name="CastleHealthLabel" type="Label" parent="UI"]
+offset_left = 1024.0
+offset_top = 8.0
+offset_right = 1259.0
+offset_bottom = 31.0
+text = "Castle Health Remaining: 1000"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
