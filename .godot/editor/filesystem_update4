@@ -5,6 +5,5 @@ res://scenes/arrow.tscn
 res://scenes/archer.tscn
 res://scenes/castle.tscn
 res://scripts/game.gd
-res://scenes/castle.gd
-res://scripts/globals.gd
-res://scenes/game_interface.gd
+res://scripts/arrow.gd
+res://scripts/archer.gd

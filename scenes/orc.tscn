@@ -240,7 +240,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5noo1")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_d",
 "speed": 8.0
 }, {
@@ -263,7 +263,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pt1fa")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_s",
 "speed": 8.0
 }, {
@@ -286,7 +286,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c6q07")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_u",
 "speed": 8.0
 }, {
@@ -378,7 +378,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ehm5t")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk_d",
 "speed": 9.0
 }, {
@@ -401,7 +401,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bkeo3")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk_s",
 "speed": 8.0
 }, {
@@ -424,17 +424,19 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_50yvo")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk_u",
 "speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lorbm"]
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hca16"]
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8yu0"]
+radius = 8.0
 
 [sub_resource type="Theme" id="Theme_eiylo"]
 
@@ -459,7 +461,7 @@ script = ExtResource("1_wlqcp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2q1ba")
-animation = &"die_u"
+animation = &"die_s"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lorbm")
@@ -468,12 +470,14 @@ shape = SubResource("CircleShape2D_lorbm")
 avoidance_enabled = true
 
 [node name="AggroRadius" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius"]
 shape = SubResource("CircleShape2D_hca16")
 debug_color = Color(0.528893, 0, 0.108299, 0.42)
 
 [node name="Hitbox" type="Area2D" parent="."]
+z_index = 20
 collision_layer = 2
 collision_mask = 16
 

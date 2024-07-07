@@ -17,13 +17,20 @@ var _archer_tower_cost: int = 100
 @onready var orc_scene: PackedScene = preload("res://scenes/orc.tscn")
 @onready var global_state: Node = $"/root/Globals" as Globals
 @onready var build_grid: Node2D = $BuildGrid
+@onready var enemy_spawn_zone := $EnemySpawnZone/CollisionShape2D as CollisionShape2D
+@onready var enemy_spawn_center := $EnemySpawnZone.position + $EnemySpawnZone/CollisionShape2D.position as Vector2
+@onready var enemy_spawn_extents := enemy_spawn_zone.shape.extents as Vector2
 
 
 func _ready() -> void:
 	global_state.castle_damaged.connect(_set_is_game_over)
-
-	for i in 10:
+	for i in 10:	
+		var random_spawn_location := Vector2(
+				(randi() % int(enemy_spawn_extents.x)) - (enemy_spawn_extents.x / 2) + enemy_spawn_center.x,
+				(randi() % int(enemy_spawn_extents.y)) - (enemy_spawn_extents.y / 2) + enemy_spawn_center.y
+		)
 		var orc: CharacterBody2D = orc_scene.instantiate()
+		orc.global_position = random_spawn_location
 		add_child(orc)
 
 
@@ -42,16 +49,14 @@ func _input(event: InputEvent) -> void:
 	if _is_placing_tower and event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			var mouse_pos: Vector2 = event.position
-			var remaining_gold: int = global_state.gold - _archer_tower_cost
-			if _is_valid_placement and remaining_gold >= 0:
-				global_state.set_gold(remaining_gold)
+			var is_affordable: bool = global_state.has_enough_gold(_archer_tower_cost)
+
+			if _is_valid_placement and is_affordable:
+				global_state.spend_gold(_archer_tower_cost)
 				place_tower(mouse_pos)
-			else:
-				print("not enough gold!")
 
 
 func _set_is_game_over(castle_health: int) -> void:
-	print("castle health is ", castle_health)
 	if castle_health <= 0:
 		_is_game_over = true
 	else:
@@ -129,6 +134,7 @@ func remove_gold(gold_amount: int) -> void:
 
 func has_enough_gold(gold_amount: int) -> bool:
 	return _current_gold - gold_amount >= 0
+
 
 #func pick_random_location():
 	#var rng = RandomNumberGenerator.new()

@@ -1,13 +1,17 @@
 extends Node
 
+
 signal castle_damaged(castle_health)
 signal gold_changed(current_gold)
+signal purchase_failed(reason)
+
 @export var gold: int = 500:
 	set = set_gold
 @export var castle_health := 1000:
 	set = set_castle_health
 @export var _current_wave: int = 0
 @export var _wave_active: bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +33,24 @@ func set_gold(new_gold_amount: int) -> void:
 	gold = new_gold_amount
 	gold_changed.emit(new_gold_amount)
 
+
+func add_gold(gold_amount: int) -> void:
+	set_gold(gold + gold_amount)
+
+
+func spend_gold(gold_amount: int) -> void:
+	var new_gold_amount := gold - gold_amount
+	set_gold(new_gold_amount)
+
+
+func has_enough_gold(gold_amount: int) -> bool:
+	if gold - gold_amount >= 0:
+		return true
+	else:
+		purchase_failed.emit("Not enough gold.")
+		return false
+
+
 func next_wave():
 	_current_wave += 1
 
@@ -41,16 +63,6 @@ func end_round():
 	_wave_active = false
 
 
-func add_gold(gold_amount: int) -> void:
-	gold += gold_amount
-
-
-func remove_gold(gold_amount: int) -> void:
-	gold -= gold_amount
-
-
-func has_enough_gold(gold_amount: int) -> bool:
-	return gold - gold_amount >= 0
 
 
 

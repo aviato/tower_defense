@@ -7,8 +7,9 @@
 size = Vector2(255, 127)
 
 [node name="StaticBody2D" type="StaticBody2D"]
-collision_mask = 11
+collision_mask = 9
 script = ExtResource("1_j7yya")
+metadata/_edit_horizontal_guides_ = [-180.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 2

@@ -44,6 +44,8 @@ func _on_aggro_radius_body_entered(body: CharacterBody2D) -> void:
 	_is_ready = true
 	_animated_sprite.stop()
 	_animated_sprite.play("pre_attack_" + orientation)
+	if body.has_signal("died"):
+		body.died.connect(_on_aggro_radius_body_exited)
 
 
 func _on_aggro_radius_body_exited(body: CharacterBody2D) -> void:
