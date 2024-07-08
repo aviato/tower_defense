@@ -6,7 +6,7 @@ const GRID_SIZE = Vector2(16, 16)
 @export var _wave_active: bool = false
 @export var _current_gold: int = 500
 var _is_placing_tower: bool = false
-var _is_valid_placement: bool = false
+var _is_valid_placement: bool = true
 var _colliding_bodies: Array[Area2D] = []
 var _is_game_over = false:
 	set = _set_is_game_over
@@ -20,24 +20,25 @@ var _archer_tower_cost: int = 100
 @onready var enemy_spawn_zone := $EnemySpawnZone/CollisionShape2D as CollisionShape2D
 @onready var enemy_spawn_center := $EnemySpawnZone.position + $EnemySpawnZone/CollisionShape2D.position as Vector2
 @onready var enemy_spawn_extents := enemy_spawn_zone.shape.extents as Vector2
+@onready var enemy_spawn_timer := $EnemySpawnTimer as Timer
+@onready var game_start_timer := $GameStartTimer as Timer
 
 
 func _ready() -> void:
 	global_state.castle_damaged.connect(_set_is_game_over)
-	for i in 10:	
-		var random_spawn_location := Vector2(
-				(randi() % int(enemy_spawn_extents.x)) - (enemy_spawn_extents.x / 2) + enemy_spawn_center.x,
-				(randi() % int(enemy_spawn_extents.y)) - (enemy_spawn_extents.y / 2) + enemy_spawn_center.y
-		)
-		var orc: CharacterBody2D = orc_scene.instantiate()
-		orc.global_position = random_spawn_location
-		add_child(orc)
+	game_start_timer.start(10.0)
+	$UI/GameStartTimerLabel.text = "Game starting in " + str(int(game_start_timer.time_left)) + "s"
 
 
 func _process(_delta) -> void:
 	if _is_game_over:
-		print("game over bud...")
 		return
+
+	if not game_start_timer.is_stopped():
+		$UI/GameStartTimerLabel.text = "Game starting in " + str(int(game_start_timer.time_left)) + "s"	
+
+	if not enemy_spawn_timer.is_stopped():
+		$UI/NextWaveTimerLabel.text = "Next Wave in " + str(int(enemy_spawn_timer.time_left)) + "s"
 
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	
@@ -54,6 +55,10 @@ func _input(event: InputEvent) -> void:
 			if _is_valid_placement and is_affordable:
 				global_state.spend_gold(_archer_tower_cost)
 				place_tower(mouse_pos)
+
+
+func _update_timer():
+	$UI/GameStartTimerLabel.text = "Game starting in " + str(int(game_start_timer.time_left)) + "s"
 
 
 func _set_is_game_over(castle_health: int) -> void:
@@ -136,11 +141,30 @@ func has_enough_gold(gold_amount: int) -> bool:
 	return _current_gold - gold_amount >= 0
 
 
-#func pick_random_location():
-	#var rng = RandomNumberGenerator.new()
-	#rng.randomize()
-	#
-	#var random_x = rng.randf_range(top_left.x + enemy_size.x / 2, bottom_right.x - enemy_size.x / 2)
-	#var random_y = rng.randf_range(top_left.y + enemy_size.y / 2, bottom_right.y - enemy_size.y / 2)
-	#
-	#return Vector2(random_x, random_y)
+func _on_game_start_timer_timeout():
+	_current_wave = 1
+	$UI/GameStartTimerLabel.visible = false
+	$UI/NextWaveTimerLabel.visible = true
+	for i in _current_wave * 5:
+		var random_spawn_location := Vector2(
+				(randi() % int(enemy_spawn_extents.x)) - (enemy_spawn_extents.x / 2) + enemy_spawn_center.x,
+				(randi() % int(enemy_spawn_extents.y)) - (enemy_spawn_extents.y / 2) + enemy_spawn_center.y
+		)
+		var orc: CharacterBody2D = orc_scene.instantiate()
+		orc.global_position = random_spawn_location
+		add_child(orc)
+	enemy_spawn_timer.start(30)
+
+
+func _on_enemy_spawn_timer_timeout():
+	_current_wave += 1
+	for i in _current_wave * 5:
+		var random_spawn_location := Vector2(
+				(randi() % int(enemy_spawn_extents.x)) - (enemy_spawn_extents.x / 2) + enemy_spawn_center.x,
+				(randi() % int(enemy_spawn_extents.y)) - (enemy_spawn_extents.y / 2) + enemy_spawn_center.y
+		)
+		var orc: CharacterBody2D = orc_scene.instantiate()
+		orc.global_position = random_spawn_location
+		add_child(orc)
+	enemy_spawn_timer.start(30)
+

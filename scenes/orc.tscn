@@ -446,11 +446,14 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+border_color = Color(0.733333, 0.733333, 0.733333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cws8m"]
 bg_color = Color(1, 0, 0, 1)
-border_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 2
@@ -485,11 +488,11 @@ collision_mask = 16
 shape = SubResource("CircleShape2D_q8yu0")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -6.0
-offset_top = -15.0
-offset_right = 10.0
-offset_bottom = 17.0
-scale = Vector2(0.792214, 0.0585857)
+z_index = 100
+offset_left = -9.0
+offset_top = -20.0
+offset_right = 11.0
+offset_bottom = -15.0
 theme = SubResource("Theme_eiylo")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3

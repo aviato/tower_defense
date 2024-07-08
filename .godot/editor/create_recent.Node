@@ -1,11 +1,11 @@
+Label
+Timer
 CollisionShape2D
 Area2D
 Node2D
 ProgressBar
 TextureProgressBar
 Sprite2D
-Label
-Timer
 CollisionPolygon2D
 ColorRect
 Button

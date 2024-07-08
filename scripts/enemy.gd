@@ -18,14 +18,13 @@ extends CharacterBody2D
 ## Animation names should always be snake case ex: "walk_s", "attack_u"
 signal attacked(damage_amount)
 signal dropped_gold(gold_amount)
-signal died(body)
 
 @export var _move_speed := 55.0
 @export var _health := 100
 @export var _character_state := "walk"
 var _is_attacking := false
 var _attack_power := 20
-var _gold_in_pockets := 25
+var _gold_in_pockets := 50
 @onready var _animated_sprite := $AnimatedSprite2D as AnimatedSprite2D
 @onready var _nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var _enemy_destination := get_node("/root/Main/Game/EnemyDestination") as Area2D
@@ -102,7 +101,6 @@ func animate(orientation: String) -> void:
 func take_damage(amount: int) -> void:
 	_health -= amount
 	$ProgressBar.value = _health
-	print(_health)
 
 
 func _on_aggro_radius_body_entered(body) -> void:
@@ -121,7 +119,7 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector2) -> void:
 #TODO look up Area2D.is_in_group method and see about putting all projectiles
 #into a group...
 func _on_hitbox_area_entered(projectile: Area2D) -> void:
-	if projectile.target != null:
+	if projectile.target != null and _health > 0:
 		var intended_target_id = projectile.target.get_instance_id()
 		if get_instance_id() == intended_target_id and projectile.has_method("set_hit_target"):
 			var orientation = get_orientation((_enemy_destination.global_position - global_position).normalized()) # NOTE: also flips the sprite!
