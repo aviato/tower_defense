@@ -57,6 +57,7 @@ func _on_aggro_radius_body_exited(body: CharacterBody2D) -> void:
 		_animated_sprite.stop()
 		_animated_sprite.play("idle_s")
 		_is_ready = false
+		_is_shooting = false
 
 
 func _on_cooldown_timer_timeout() -> void:
