@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_a5b8j"]
 [ext_resource type="Texture2D" uid="uid://c7rpq35ms6mvh" path="res://assets/terrain_tilemap.png" id="1_qfkji"]
-[ext_resource type="Script" path="res://scenes/game_interface.gd" id="4_quwmy"]
+[ext_resource type="Script" path="res://scripts/game_interface.gd" id="4_quwmy"]
 [ext_resource type="PackedScene" uid="uid://cnug7dh45crj2" path="res://scenes/castle.tscn" id="4_tg0nq"]
 [ext_resource type="Texture2D" uid="uid://c8ioucx2cx86k" path="res://assets/sprites/valid.png" id="5_frii2"]
 [ext_resource type="Texture2D" uid="uid://bfy3gkagube0u" path="res://assets/sprites/invalid.png" id="6_8luyf"]
-[ext_resource type="Script" path="res://scenes/grid_node.gd" id="8_r8vvq"]
+[ext_resource type="Script" path="res://scripts/grid_node.gd" id="8_r8vvq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpy3"]
 texture = ExtResource("1_qfkji")

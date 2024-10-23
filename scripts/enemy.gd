@@ -54,6 +54,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			_on_nav_agent_velocity_computed(new_velocity)
 
+
 func _on_animation_finished():
 	if _animated_sprite.animation.find("die") != -1:
 		_global_state.add_gold(_gold_in_pockets)

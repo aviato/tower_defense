@@ -91,4 +91,3 @@ func _animate(orientation: String) -> void:
 	var next_animation: String = state + "_" + orientation
 	assert(sprite_frames.has_animation(next_animation))
 	_animated_sprite.play(next_animation)
-

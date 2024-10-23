@@ -68,7 +68,7 @@ func _set_is_game_over(castle_health: int) -> void:
 		_is_game_over = false
 
 
-#NOTE I do not know how this works
+#NOTE I do not fully understand how this works
 func snap_vector(pos: Vector2):
 	return Vector2(
 		int(pos.x / GRID_SIZE.x) * GRID_SIZE.x,
@@ -167,4 +167,3 @@ func _on_enemy_spawn_timer_timeout():
 		orc.global_position = random_spawn_location
 		add_child(orc)
 	enemy_spawn_timer.start(30)
-

@@ -61,8 +61,3 @@ func start_round():
 
 func end_round():
 	_wave_active = false
-
-
-
-
-

@@ -19,4 +19,3 @@ func _on_start_game():
 	game_scene = preload("res://scenes/game.tscn")
 	add_child(game_scene.instantiate())
 	main_menu_scene.queue_free()
-

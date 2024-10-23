@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnug7dh45crj2"]
 
 [ext_resource type="Texture2D" uid="uid://bou3qal2r5qsu" path="res://assets/sprite_sheets/big_castle.png" id="1_0tew0"]
-[ext_resource type="Script" path="res://scenes/castle.gd" id="1_j7yya"]
+[ext_resource type="Script" path="res://scripts/castle.gd" id="1_j7yya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1qcag"]
 size = Vector2(255, 127)

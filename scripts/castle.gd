@@ -13,4 +13,3 @@ func _process(_delta):
 	
 func take_damage(damage_amount: int) -> void:
 	global_state.set_castle_health(damage_amount)
-

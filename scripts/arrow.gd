@@ -39,4 +39,3 @@ func set_target(body: CharacterBody2D, arrow_speed: float) -> void:
 	target = body
 	_is_flying = true
 	_arrow_speed = arrow_speed
-
